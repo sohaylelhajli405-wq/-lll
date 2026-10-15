@@ -10,8 +10,8 @@
             --bg-primary: #313338;
             --bg-secondary: #2b2d31;
             --bg-tertiary: #1e1f22;
-            --accent: #5865f2;
-            --accent-hover: #4752c4;
+            --accent: #e5a93e; /* لون قبعة القش */
+            --accent-hover: #d09632;
             --text-main: #dbdee1;
             --text-muted: #949ba4;
             --text-white: #ffffff;
@@ -28,16 +28,19 @@
             background-color: var(--bg-primary);
             color: var(--text-main);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* 1. Écran de Connexion */
+        /* 1. Écran de Connexion avec fond de livres et tests */
         #loginScreen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #3f4248 0%, #1e1f22 100%);
+            background: linear-gradient(rgba(31, 31, 34, 0.85), rgba(31, 31, 34, 0.85)), 
+                        url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -48,13 +51,14 @@
             background-color: var(--bg-secondary);
             padding: 2.5rem;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            border: 1px solid #3f4248;
         }
 
-        .login-card i {
+        .straw-hat-icon {
             font-size: 3.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
@@ -104,7 +108,7 @@
             width: 100%;
             padding: 0.75rem;
             background-color: var(--accent);
-            color: white;
+            color: #1e1f22;
             border: none;
             border-radius: 4px;
             font-size: 1rem;
@@ -150,7 +154,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #1e1f22;
+            font-weight: bold;
         }
 
         .search-container {
@@ -181,6 +186,7 @@
             max-width: 1100px;
             margin: 0 auto;
             width: 100%;
+            flex-grow: 1;
         }
 
         .tabs {
@@ -235,6 +241,17 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            background-color: var(--bg-tertiary);
+            border-top: 1px solid #202225;
+            margin-top: auto;
+        }
     </style>
 </head>
 <body>
@@ -242,7 +259,8 @@
     <!-- Écran de Connexion -->
     <div id="loginScreen">
         <div class="login-card">
-            <i class="fa-brands fa-discord"></i>
+            <!-- أيقونة قبعة القش -->
+            <i class="fa-solid fa-hat-cowboy straw-hat-icon" title="Straw Hat"></i>
             <h2>Bienvenue</h2>
             <p>Entrez votre nom pour accéder à l'espace</p>
             <form id="loginForm">
@@ -280,6 +298,10 @@
                 <p>Vous pourrez ajouter vos leçons et questionnaires plus tard.</p>
             </div>
         </main>
+
+        <footer>
+            <span>Fabriqué par pykatsi</span>
+        </footer>
     </div>
 
     <script>
