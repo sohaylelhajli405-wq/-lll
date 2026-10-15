@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme de Cours & QCM</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #313338;
+            --bg-secondary: #2b2d31;
+            --bg-tertiary: #1e1f22;
+            --accent: #5865f2;
+            --accent-hover: #4752c4;
+            --text-main: #dbdee1;
+            --text-muted: #949ba4;
+            --text-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* 1. Écran de Connexion */
+        #loginScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #3f4248 0%, #1e1f22 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background-color: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-card i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .login-card h2 {
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--bg-tertiary);
+            border: 1px solid #111214;
+            border-radius: 4px;
+            color: var(--text-white);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-login:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* 2. Tableau de Bord (Dashboard) */
+        #appScreen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--bg-tertiary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #202225;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-white);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .search-container {
+            position: relative;
+            width: 280px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.5rem 2.2rem 0.5rem 0.8rem;
+            background-color: var(--bg-secondary);
+            border: none;
+            border-radius: 4px;
+            color: var(--text-white);
+            outline: none;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--bg-secondary);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            color: var(--text-white);
+            background-color: var(--bg-secondary);
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .content-box {
+            background-color: var(--bg-secondary);
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px dashed #3f4248;
+        }
+
+        .content-box i {
+            font-size: 3rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .content-box h3 {
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Écran de Connexion -->
+    <div id="loginScreen">
+        <div class="login-card">
+            <i class="fa-brands fa-discord"></i>
+            <h2>Bienvenue</h2>
+            <p>Entrez votre nom pour accéder à l'espace</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Nom d'utilisateur</label>
+                    <input type="text" id="usernameInput" placeholder="Votre nom..." required autocomplete="off">
+                </div>
+                <button type="submit" class="btn-login">Commencer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application / Dashboard -->
+    <div id="appScreen">
+        <header>
+            <div class="user-info">
+                <div class="avatar" id="userInitial">U</div>
+                <span>Bonjour, <span id="userNameDisplay" style="color: var(--accent);"></span></span>
+            </div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Rechercher un cours...">
+            </div>
+        </header>
+
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active"><i class="fa-solid fa-book"></i> Résumés de Cours</button>
+                <button class="tab-btn"><i class="fa-solid fa-list-check"></i> Tests QCM</button>
+            </div>
+
+            <div class="content-box">
+                <i class="fa-solid fa-folder-open"></i>
+                <h3>Aucun contenu pour l'instant</h3>
+                <p>Vous pourrez ajouter vos leçons et questionnaires plus tard.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('usernameInput').value.trim();
+            if(name) {
+                document.getElementById('userNameDisplay').textContent = name;
+                document.getElementById('userInitial').textContent = name.charAt(0).toUpperCase();
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('appScreen').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
